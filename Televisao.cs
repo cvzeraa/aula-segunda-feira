@@ -1,98 +1,117 @@
 public class Televisao
 {
-    
-    public float Tamanho { get; set; }
-    public int Resoluçao { get; set; }
-    public int Volume { get; set; }
-    public int Canal { get; set; }
-    public bool Estado { get; set; }
-    private bool Mudo {get; set; }
-    private int UltimoCanal {get; set; }
+    public const int VOL_MAX = 100;
+    public const int VOL_MIN = 0;
+    public const int CANAL_MAX = 520;
+    public const int CANAL_MIN = 1;
 
-    //TV
-    private const int VolumeMinimo = 0;
-    private const int VolumeMaximo = 100;
-    private const int CanalMinimo = 1;
-    private const int CanalMaximo = 520;
+    public bool ligada;
+    public int volume;
+    public int canalAtual;
+    public int ultimoCanal;
+    public bool Volume0;
+    public int volumeAntesDoMudo;
+    public float tamanho;
 
-
-    public Televisao(float tamanho){
-        Tamanho = tamanho;
-        Volume = 50;
-        Canal = 1;
-        UltimoCanal = 1;
-        Estado = false;
-        Mudo = false;
-    }
-
-    //ESTADO
-    public void Ligar() {
-        Estado = true;
-        Canal = UltimoCanal;
-        Console.WriteLine($"TV ligada no canal {Canal}");
-    }
-
-    public void Desligar(){
-        Estado = false;
-        UltimoCanal = Canal;
-        Console.WriteLine("TV desligada");
-    }
-
-    //VOLUME
-    public void AumentarVolume(){
-        if(Volume < VolumeMaximo)
+    public Televisao(float tamanho)
     {
-        Volume++;
-        Console.WriteLine($"Volume: {Volume}");
+        this.tamanho = tamanho;
+        ligada = false;
+        volume = 10;
+        canalAtual = CANAL_MIN;
+        ultimoCanal = canalAtual;
+        Volume0 = false;
+        volumeAntesDoMudo = volume;
     }
-    else
+    public void Ligar()
+    {
+        ligada = true;
+        canalAtual = ultimoCanal;
+    }
+    public void Desligar()
+    {
+        ligada = false;
+        ultimoCanal = canalAtual;
+    }
+    public void AumentarVolume()
+    {
+        if (!ligada)
+            return;
+
+        if (Volume0)
         {
-        Console.WriteLine("Volume já está no máximo");
+            DesativarMudo();
+        }
+
+        if (volume < VOL_MAX)
+            volume++;
+    }
+    public void DiminuirVolume()
+    {
+        if (!ligada)
+            return;
+
+        if (Volume0)
+        {
+            DesativarMudo();
+        }
+
+        if (volume > VOL_MIN)
+            volume--;
+    }
+    public void AtivarMudo()
+    {
+        if (!ligada)
+            return;
+
+        if (!Volume0)
+        {
+            volumeAntesDoMudo = volume;
+            volume = 0;
+            Volume0 = true;
         }
     }
-    public void DiminuirVolume(){
-        if(Volume > VolumeMinimo)
+    public void DesativarMudo()
     {
-        Volume--;
-        Console.WriteLine($"Volume: {Volume}");
-    }
-    else
+        if (!ligada)
+            return;
+
+        if (Volume0)
         {
-            Console.WriteLine("Volume já está no mínimo");
+            volume = volumeAntesDoMudo;
+            Volume0 = false;
         }
     }
 
-    public void AtivarMudo(){
-        Mudo = !Mudo;
-        if(Mudo)
-            Console.WriteLine("Mudo ativado");
-        else   
-            Console.WriteLine("Mudo Desativado. Volume atual: {Volume}");
+    public void AumentarCanal()
+    {
+        if (!ligada)
+            return;
+
+        if (canalAtual < CANAL_MAX)
+            canalAtual++;
+        else
+            canalAtual = CANAL_MIN;
     }
 
-   //CANAL
-   public void IrParaCanal(int numero){
-    if(numero>= CanalMinimo && numero <= CanalMaximo)
+    public void DiminuirCanal()
     {
-        Canal = numero;
-        UltimoCanal = numero;
-        Console.WriteLine($"Canal alterado para {Canal}");
+        if (!ligada)
+            return;
+
+        if (canalAtual > CANAL_MIN)
+            canalAtual--;
+        else
+            canalAtual = CANAL_MAX;
     }
-    else
+
+    public void EscolherCanal(int numeroCanal)
     {
-        Console.WriteLine("Número de canal inválido");
+        if (!ligada)
+            return;
+
+        if (numeroCanal >= CANAL_MIN && numeroCanal <= CANAL_MAX)
+            canalAtual = numeroCanal;
     }
 }
-
-    public void ProximoCanal(){
-        Canal = (Canal < CanalMaximo) ? Canal + 1 : CanalMinimo;
-        UltimoCanal = Canal;
-        Console.WriteLine($"Canal alterado para {Canal}");
-    }
-
-    public void CanalAnterior(){
-        Canal = (Canal > CanalMinimo) ? Canal - 1 : CanalMaximo;
-        UltimoCanal = Canal;
-        Console.WriteLine($"Canal alterado para {Canal}");
-    }
 
