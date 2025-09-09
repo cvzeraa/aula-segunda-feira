@@ -1,20 +1,19 @@
-﻿using System;
+ Televisao tv = new Televisao(42);
+tv.Ligar();
 
-Class Program{
-    static void Main(String [] args){
-        Televisao tv = new Televisao(55);
+tv.EscolherCanal(1);
+tv.AumentarVolume();
+Console.WriteLine("teste");
+Console.WriteLine(tv.canalAtual);
+Console.WriteLine();
 
-        tv.Ligar();
-        tv.IrParaCanal(45);
-        tv.ProximoCanal():
-        tv.CanalAnterior();
-        tv.IrParaCanal(600);
+tv.AtivarMudo();
+tv.DesativarMudo();
+Console.WriteLine("Desativando mudo");
+Console.WriteLine(tv.volume);
+Console.WriteLine();
 
-        tv.AumentarVolume();
-        tv.DiminuirVolume();
-        tv.AtivarMudo();
-        tv.AtivarMudo();
 
-        tv.Desligar();
-    }
-}
+tv.AumentarCanal();
+tv.DiminuirCanal();
+tv.Desligar();
