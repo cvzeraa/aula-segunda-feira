@@ -96,5 +96,3 @@ public class Televisao
         Console.WriteLine($"Canal alterado para {Canal}");
     }
 
-}
-
