@@ -80,13 +80,21 @@ public class Televisao
     }
     else
     {
-        Console.Writeline("Número de canal inválido");
+        Console.WriteLine("Número de canal inválido");
     }
 }
 
-    public void C
+    public void ProximoCanal(){
+        Canal = (Canal < CanalMaximo) ? Canal + 1 : CanalMinimo;
+        UltimoCanal = Canal;
+        Console.WriteLine($"Canal alterado para {Canal}");
+    }
 
-
+    public void CanalAnterior(){
+        Canal = (Canal > CanalMinimo) ? Canal - 1 : CanalMaximo;
+        UltimoCanal = Canal;
+        Console.WriteLine($"Canal alterado para {Canal}");
+    }
 
 }
 

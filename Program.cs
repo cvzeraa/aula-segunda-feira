@@ -1,11 +1,20 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System;
 
-Televisao tv = new Televisao(55f);
-Console.WriteLine(tv.Tamanho);
+Class Program{
+    static void Main(String [] args){
+        Televisao tv = new Televisao(55);
 
-tv.Volume = -35;
-Console.WriteLine(tv.Volume);
+        tv.Ligar();
+        tv.IrParaCanal(45);
+        tv.ProximoCanal():
+        tv.CanalAnterior();
+        tv.IrParaCanal(600);
 
-tv.Volume = 120;
-Console.WriteLine(tv.Volume);
+        tv.AumentarVolume();
+        tv.DiminuirVolume();
+        tv.AtivarMudo();
+        tv.AtivarMudo();
+
+        tv.Desligar();
+    }
+}
